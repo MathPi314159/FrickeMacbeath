@@ -1,0 +1,255 @@
+int n = 50 ;//number of points by sides
+int nev = 50 ;//number of eigenvalues to be calculated
+string fnm="FrickeMacBeath-Eigenvalues-n50-nev50.txt" ; // file name for saving
+real r = 0.54948861298924;//radius of every arc of circle
+real c = 1.141024862045012;//x coordinate of the center of the first circle
+real s = c-r;//x coordinate of the midpoint of the first arc of circle
+
+real x01 = s ;
+real y01 = 0 ;
+real x02 = s * cos(2* pi / 7) ;
+real y02 = s * sin(2* pi / 7) ;
+real x03 = s * cos(4*pi / 7) ;
+real y03 = s * sin(4*pi / 7) ;
+real x04 = s * cos(6* pi / 7) ;
+real y04 = s * sin(6* pi / 7) ;
+real x05 = s * cos(8* pi / 7) ;
+real y05 = s * sin(8* pi / 7) ;
+real x06 = s * cos(10* pi / 7) ;
+real y06 = s * sin(10* pi / 7) ;
+real x07 = s * cos(12* pi / 7) ;
+real y07 = s * sin(12* pi / 7) ;
+//the coordinates of the midpoints of the sides, for the copies, simply translate all x coordinates 2 to the right each time
+
+//the borders of the central heptagon
+border G01(t=17*pi/14 ,11*pi/14) { x=c+r * cos(t) ; y=r * sin(t) ; label = 1;  } ;
+border G02(t=17*pi/14 ,11*pi/14) { x=cos(2*pi /7)*(c+r * cos(t))-sin(2*pi /7)* r * sin(t) ;
+y=sin(2*pi /7)*(c+r * cos(t))+cos(2*pi /7)* r * sin(t) ; } ;
+border G03(t=17*pi/14 ,11*pi/14) { x=cos(4*pi /7)*(c+r * cos(t))-sin(4*pi /7)* r * sin(t) ;
+y=sin(4*pi /7)*(c+r * cos(t))+cos(4*pi /7)* r * sin(t) ; } ;
+border G04(t=17*pi/14 ,11*pi/14) { x=cos(6*pi /7)*(c+r * cos(t))-sin(6*pi /7)* r * sin(t) ;
+y=sin(6*pi /7)*(c+r * cos(t))+cos(6*pi /7)* r * sin(t) ; } ;
+border G05(t=17*pi/14 ,11*pi/14) { x=cos(8*pi /7)*(c+r * cos(t))-sin(8*pi /7)* r * sin(t) ;
+y=sin(8*pi /7)*(c+r * cos(t))+cos(8*pi /7)* r * sin(t) ; } ;
+border G06(t=17*pi/14 ,11*pi/14) { x=cos(10*pi /7)*(c+r * cos(t))-sin(10*pi /7)* r * sin(t) ;
+y=sin(10*pi /7)*(c+r * cos(t))+cos(10*pi /7)* r * sin(t) ; } ;
+border G07(t=17*pi/14 ,11*pi/14) { x=cos(12*pi /7)*(c+r * cos(t))-sin(12*pi /7)* r * sin(t) ;
+y=sin(12*pi /7)*(c+r * cos(t))+cos(12*pi /7)* r * sin(t) ; } ;
+
+//the borders of the first heptagon
+border G11(t=17*pi/14 ,11*pi/14) { x=2+c+r * cos(t) ; y=r * sin(t) ; label = 8; } ;
+border G12(t=17*pi/14 ,11*pi/14) { x=2+cos(2*pi /7)*(c+r * cos(t))-sin(2*pi /7)* r * sin(t) ;
+y=sin(2*pi /7)*(c+r * cos(t))+cos(2*pi /7)* r * sin(t) ; } ;
+border G13(t=17*pi/14 ,11*pi/14) { x=2+cos(4*pi /7)*(c+r * cos(t))-sin(4*pi /7)* r * sin(t) ;
+y=sin(4*pi /7)*(c+r * cos(t))+cos(4*pi /7)* r * sin(t) ; } ;
+border G14(t=17*pi/14 ,11*pi/14) { x=2+cos(6*pi /7)*(c+r * cos(t))-sin(6*pi /7)* r * sin(t) ;
+y=sin(6*pi /7)*(c+r * cos(t))+cos(6*pi /7)* r * sin(t) ; } ;
+border G15(t=17*pi/14 ,11*pi/14) { x=2+cos(8*pi /7)*(c+r * cos(t))-sin(8*pi /7)* r * sin(t) ;
+y=sin(8*pi /7)*(c+r * cos(t))+cos(8*pi /7)* r * sin(t) ; } ;
+border G16(t=17*pi/14 ,11*pi/14) { x=2+cos(10*pi /7)*(c+r * cos(t))-sin(10*pi /7)* r * sin(t) ;
+y=sin(10*pi /7)*(c+r * cos(t))+cos(10*pi /7)* r * sin(t) ; } ;
+border G17(t=17*pi/14 ,11*pi/14) { x=2+cos(12*pi /7)*(c+r * cos(t))-sin(12*pi /7)* r * sin(t) ;
+y=sin(12*pi /7)*(c+r * cos(t))+cos(12*pi /7)* r * sin(t) ; } ;
+
+//the borders of the second heptagon
+border G21(t=17*pi/14 ,11*pi/14) { x=4+c+r * cos(t) ; y=r * sin(t) ; } ;
+border G22(t=17*pi/14 ,11*pi/14) { x=4+cos(2*pi /7)*(c+r * cos(t))-sin(2*pi /7)* r * sin(t) ;
+y=sin(2*pi /7)*(c+r * cos(t))+cos(2*pi /7)* r * sin(t) ; } ;
+border G23(t=17*pi/14 ,11*pi/14) { x=4+cos(4*pi /7)*(c+r * cos(t))-sin(4*pi /7)* r * sin(t) ;
+y=sin(4*pi /7)*(c+r * cos(t))+cos(4*pi /7)* r * sin(t) ; } ;
+border G24(t=17*pi/14 ,11*pi/14) { x=4+cos(6*pi /7)*(c+r * cos(t))-sin(6*pi /7)* r * sin(t) ;
+y=sin(6*pi /7)*(c+r * cos(t))+cos(6*pi /7)* r * sin(t) ; } ;
+border G25(t=17*pi/14 ,11*pi/14) { x=4+cos(8*pi /7)*(c+r * cos(t))-sin(8*pi /7)* r * sin(t) ;
+y=sin(8*pi /7)*(c+r * cos(t))+cos(8*pi /7)* r * sin(t) ; } ;
+border G26(t=17*pi/14 ,11*pi/14) { x=4+cos(10*pi /7)*(c+r * cos(t))-sin(10*pi /7)* r * sin(t) ;
+y=sin(10*pi /7)*(c+r * cos(t))+cos(10*pi /7)* r * sin(t) ; } ;
+border G27(t=17*pi/14 ,11*pi/14) { x=4+cos(12*pi /7)*(c+r * cos(t))-sin(12*pi /7)* r * sin(t) ;
+y=sin(12*pi /7)*(c+r * cos(t))+cos(12*pi /7)* r * sin(t) ; } ;
+
+//the borders of the third heptagon
+border G31(t=17*pi/14 ,11*pi/14) { x=6+c+r * cos(t) ; y=r * sin(t) ; } ;
+border G32(t=17*pi/14 ,11*pi/14) { x=6+cos(2*pi /7)*(c+r * cos(t))-sin(2*pi /7)* r * sin(t) ;
+y=sin(2*pi /7)*(c+r * cos(t))+cos(2*pi /7)* r * sin(t) ; } ;
+border G33(t=17*pi/14 ,11*pi/14) { x=6+cos(4*pi /7)*(c+r * cos(t))-sin(4*pi /7)* r * sin(t) ;
+y=sin(4*pi /7)*(c+r * cos(t))+cos(4*pi /7)* r * sin(t) ; } ;
+border G34(t=17*pi/14 ,11*pi/14) { x=6+cos(6*pi /7)*(c+r * cos(t))-sin(6*pi /7)* r * sin(t) ;
+y=sin(6*pi /7)*(c+r * cos(t))+cos(6*pi /7)* r * sin(t) ; } ;
+border G35(t=17*pi/14 ,11*pi/14) { x=6+cos(8*pi /7)*(c+r * cos(t))-sin(8*pi /7)* r * sin(t) ;
+y=sin(8*pi /7)*(c+r * cos(t))+cos(8*pi /7)* r * sin(t) ; } ;
+border G36(t=17*pi/14 ,11*pi/14) { x=6+cos(10*pi /7)*(c+r * cos(t))-sin(10*pi /7)* r * sin(t) ;
+y=sin(10*pi /7)*(c+r * cos(t))+cos(10*pi /7)* r * sin(t) ; } ;
+border G37(t=17*pi/14 ,11*pi/14) { x=6+cos(12*pi /7)*(c+r * cos(t))-sin(12*pi /7)* r * sin(t) ;
+y=sin(12*pi /7)*(c+r * cos(t))+cos(12*pi /7)* r * sin(t) ; } ;
+
+//the borders of the fourth heptagon
+border G41(t=17*pi/14 ,11*pi/14) { x=8+c+r * cos(t) ; y=r * sin(t) ; } ;
+border G42(t=17*pi/14 ,11*pi/14) { x=8+cos(2*pi /7)*(c+r * cos(t))-sin(2*pi /7)* r * sin(t) ;
+y=sin(2*pi /7)*(c+r * cos(t))+cos(2*pi /7)* r * sin(t) ; } ;
+border G43(t=17*pi/14 ,11*pi/14) { x=8+cos(4*pi /7)*(c+r * cos(t))-sin(4*pi /7)* r * sin(t) ;
+y=sin(4*pi /7)*(c+r * cos(t))+cos(4*pi /7)* r * sin(t) ; } ;
+border G44(t=17*pi/14 ,11*pi/14) { x=8+cos(6*pi /7)*(c+r * cos(t))-sin(6*pi /7)* r * sin(t) ;
+y=sin(6*pi /7)*(c+r * cos(t))+cos(6*pi /7)* r * sin(t) ; } ;
+border G45(t=17*pi/14 ,11*pi/14) { x=8+cos(8*pi /7)*(c+r * cos(t))-sin(8*pi /7)* r * sin(t) ;
+y=sin(8*pi /7)*(c+r * cos(t))+cos(8*pi /7)* r * sin(t) ; } ;
+border G46(t=17*pi/14 ,11*pi/14) { x=8+cos(10*pi /7)*(c+r * cos(t))-sin(10*pi /7)* r * sin(t) ;
+y=sin(10*pi /7)*(c+r * cos(t))+cos(10*pi /7)* r * sin(t) ; } ;
+border G47(t=17*pi/14 ,11*pi/14) { x=8+cos(12*pi /7)*(c+r * cos(t))-sin(12*pi /7)* r * sin(t) ;
+y=sin(12*pi /7)*(c+r * cos(t))+cos(12*pi /7)* r * sin(t) ; } ;
+
+//the borders of the fifth heptagon
+border G51(t=17*pi/14 ,11*pi/14) { x=10+c+r * cos(t) ; y=r * sin(t) ; } ;
+border G52(t=17*pi/14 ,11*pi/14) { x=10+cos(2*pi /7)*(c+r * cos(t))-sin(2*pi /7)* r * sin(t) ;
+y=sin(2*pi /7)*(c+r * cos(t))+cos(2*pi /7)* r * sin(t) ; } ;
+border G53(t=17*pi/14 ,11*pi/14) { x=10+cos(4*pi /7)*(c+r * cos(t))-sin(4*pi /7)* r * sin(t) ;
+y=sin(4*pi /7)*(c+r * cos(t))+cos(4*pi /7)* r * sin(t) ; } ;
+border G54(t=17*pi/14 ,11*pi/14) { x=10+cos(6*pi /7)*(c+r * cos(t))-sin(6*pi /7)* r * sin(t) ;
+y=sin(6*pi /7)*(c+r * cos(t))+cos(6*pi /7)* r * sin(t) ; } ;
+border G55(t=17*pi/14 ,11*pi/14) { x=10+cos(8*pi /7)*(c+r * cos(t))-sin(8*pi /7)* r * sin(t) ;
+y=sin(8*pi /7)*(c+r * cos(t))+cos(8*pi /7)* r * sin(t) ; } ;
+border G56(t=17*pi/14 ,11*pi/14) { x=10+cos(10*pi /7)*(c+r * cos(t))-sin(10*pi /7)* r * sin(t) ;
+y=sin(10*pi /7)*(c+r * cos(t))+cos(10*pi /7)* r * sin(t) ; } ;
+border G57(t=17*pi/14 ,11*pi/14) { x=10+cos(12*pi /7)*(c+r * cos(t))-sin(12*pi /7)* r * sin(t) ;
+y=sin(12*pi /7)*(c+r * cos(t))+cos(12*pi /7)* r * sin(t) ; } ;
+
+//the borders of the sixth heptagon
+border G61(t=17*pi/14 ,11*pi/14) { x=12+c+r * cos(t) ; y=r * sin(t) ; } ;
+border G62(t=17*pi/14 ,11*pi/14) { x=12+cos(2*pi /7)*(c+r * cos(t))-sin(2*pi /7)* r * sin(t) ;
+y=sin(2*pi /7)*(c+r * cos(t))+cos(2*pi /7)* r * sin(t) ; } ;
+border G63(t=17*pi/14 ,11*pi/14) { x=12+cos(4*pi /7)*(c+r * cos(t))-sin(4*pi /7)* r * sin(t) ;
+y=sin(4*pi /7)*(c+r * cos(t))+cos(4*pi /7)* r * sin(t) ; } ;
+border G64(t=17*pi/14 ,11*pi/14) { x=12+cos(6*pi /7)*(c+r * cos(t))-sin(6*pi /7)* r * sin(t) ;
+y=sin(6*pi /7)*(c+r * cos(t))+cos(6*pi /7)* r * sin(t) ; } ;
+border G65(t=17*pi/14 ,11*pi/14) { x=12+cos(8*pi /7)*(c+r * cos(t))-sin(8*pi /7)* r * sin(t) ;
+y=sin(8*pi /7)*(c+r * cos(t))+cos(8*pi /7)* r * sin(t) ; } ;
+border G66(t=17*pi/14 ,11*pi/14) { x=12+cos(10*pi /7)*(c+r * cos(t))-sin(10*pi /7)* r * sin(t) ;
+y=sin(10*pi /7)*(c+r * cos(t))+cos(10*pi /7)* r * sin(t) ; } ;
+border G67(t=17*pi/14 ,11*pi/14) { x=12+cos(12*pi /7)*(c+r * cos(t))-sin(12*pi /7)* r * sin(t) ;
+y=sin(12*pi /7)*(c+r * cos(t))+cos(12*pi /7)* r * sin(t) ; } ;
+
+//the borders of the seventh heptagon
+border G71(t=17*pi/14 ,11*pi/14) { x=14+c+r * cos(t) ; y=r * sin(t) ; } ;
+border G72(t=17*pi/14 ,11*pi/14) { x=14+cos(2*pi /7)*(c+r * cos(t))-sin(2*pi /7)* r * sin(t) ;
+y=sin(2*pi /7)*(c+r * cos(t))+cos(2*pi /7)* r * sin(t) ; } ;
+border G73(t=17*pi/14 ,11*pi/14) { x=14+cos(4*pi /7)*(c+r * cos(t))-sin(4*pi /7)* r * sin(t) ;
+y=sin(4*pi /7)*(c+r * cos(t))+cos(4*pi /7)* r * sin(t) ; } ;
+border G74(t=17*pi/14 ,11*pi/14) { x=14+cos(6*pi /7)*(c+r * cos(t))-sin(6*pi /7)* r * sin(t) ;
+y=sin(6*pi /7)*(c+r * cos(t))+cos(6*pi /7)* r * sin(t) ; } ;
+border G75(t=17*pi/14 ,11*pi/14) { x=14+cos(8*pi /7)*(c+r * cos(t))-sin(8*pi /7)* r * sin(t) ;
+y=sin(8*pi /7)*(c+r * cos(t))+cos(8*pi /7)* r * sin(t) ; } ;
+border G76(t=17*pi/14 ,11*pi/14) { x=14+cos(10*pi /7)*(c+r * cos(t))-sin(10*pi /7)* r * sin(t) ;
+y=sin(10*pi /7)*(c+r * cos(t))+cos(10*pi /7)* r * sin(t) ; } ;
+border G77(t=17*pi/14 ,11*pi/14) { x=14+cos(12*pi /7)*(c+r * cos(t))-sin(12*pi /7)* r * sin(t) ;
+y=sin(12*pi /7)*(c+r * cos(t))+cos(12*pi /7)* r * sin(t) ; } ;
+
+plot(G01(n)+G02(n)+G03(n)+G04(n)+G05(n)+G06(n)+G07(n)) ;
+mesh Th=buildmesh(G01(n)+G02(n)+G03(n)+G04(n)+G05(n)+G06(n)+G07(n)+G11(n)+G12(n)+G13(n)+G14(n)+G15(n)+G16(n)+G17(n)+
+G21(n)+G22(n)+G23(n)+G24(n)+G25(n)+G26(n)+G27(n)+G31(n)+G32(n)+G33(n)+G34(n)+G35(n)+G36(n)+G37(n)+
+G41(n)+G42(n)+G43(n)+G44(n)+G45(n)+G46(n)+G47(n)+G51(n)+G52(n)+G53(n)+G54(n)+G55(n)+G56(n)+G57(n)+
+G61(n)+G62(n)+G63(n)+G64(n)+G65(n)+G66(n)+G67(n)+G71(n)+G72(n)+G73(n)+G74(n)+G75(n)+G76(n)+G77(n),fixeborder=true) ;//building the mesh
+plot(Th, wait=true , fill=true) ;
+
+
+
+//side association by centering middle points, rotating to the vertical and using the height function (y component of the points must coincide)
+fespace Vh(Th,P2 , periodic =[ [ 1 , cos(0*pi)*(y-y01)-sin(0*pi)*(x-(x01))] ,
+[ 8 , cos(pi)*(y-y01)-sin(pi)*(x-(x01+2))],
+
+[ 2 , cos(2* pi /7)*(y-y02)-sin(2* pi /7)*(x-x02)],
+[ 15 , cos(pi)*(y-y01)-sin(pi)*(x-(x01+4))],
+
+[ 3 , cos(4* pi /7)*(y-y03)-sin(4* pi /7)*(x-x03)],
+[ 22 , cos(pi)*(y-y01)-sin(pi)*(x-(x01+6))],
+
+[ 4 , cos(6* pi /7)*(y-y04)-sin(6* pi /7)*(x-x04)],
+[ 29 , cos(pi)*(y-y01)-sin(pi)*(x-(x01+8))],
+
+[ 5 , cos(-6* pi /7)*(y-y05)-sin(-6* pi /7)*(x-x05)],
+[ 36 , cos(pi)*(y-y01)-sin(pi)*(x-(x01+10))],
+
+[ 6 , cos(-4*pi /7)*(y-y06)-sin(-4*pi /7)*(x-x06)],
+[ 43 , cos(pi)*(y-y01)-sin(pi)*(x-(x01+12))],
+
+[ 7 , cos(-2* pi /7)*(y-y07)-sin(-2* pi /7)*(x-x07)],
+[ 50 , cos(pi)*(y-y01)-sin(pi)*(x-(x01+14))],
+
+[ 9 , cos(2*pi/7)*(y-y02)-sin(2*pi/7)*(x-(x02+2))],
+[ 34 , cos(3*pi/7)*(y-y06)-sin(3*pi/7)*(x-(x06+8))],
+
+[ 10 , cos(4*pi/7)*(y-y03)-sin(4*pi/7)*(x-(x03+2))],
+[ 53 , cos(-pi/7)*(y-y04)-sin(-pi/7)*(x-(x04+14))],
+
+[ 11 , cos(6*pi/7)*(y-y04)-sin(6*pi/7)*(x-(x04+2))],
+[ 17 , cos(-3*pi/7)*(y-y03)-sin(-3*pi/7)*(x-(x03+4))],
+
+[ 12 , cos(-6*pi/7)*(y-y05)-sin(-6*pi/7)*(x-(x05+2))],
+[ 49 , cos(5*pi/7)*(y-y07)-sin(5*pi/7)*(x-(x07+12))],
+
+[ 13 , cos(-4*pi/7)*(y-y06)-sin(-4*pi/7)*(x-(x06+2))],
+[ 37 , cos(-5*pi/7)*(y-y02)-sin(-5*pi/7)*(x-(x02+10))],
+
+[ 14 , cos(-2*pi/7)*(y-y07)-sin(-2*pi/7)*(x-(x07+2))],
+[ 26 , cos(pi/7)*(y-y05)-sin(pi/7)*(x-(x05+6))],
+
+[ 16 , cos(2*pi/7)*(y-y02)-sin(2*pi/7)*(x-(x02+4))],
+[ 41 , cos(3*pi/7)*(y-y06)-sin(3*pi/7)*(x-(x06+10))],
+
+[ 18 , cos(6*pi/7)*(y-y04)-sin(6*pi/7)*(x-(x04+4))],
+[ 24 , cos(-3*pi/7)*(y-y03)-sin(-3*pi/7)*(x-(x03+6))],
+
+[ 19 , cos(-6*pi/7)*(y-y05)-sin(-6*pi/7)*(x-(x05+4))],
+[ 56 , cos(5*pi/7)*(y-y07)-sin(5*pi/7)*(x-(x07+14))],
+
+[ 20 , cos(-4*pi/7)*(y-y06)-sin(-4*pi/7)*(x-(x06+4))],
+[ 44 , cos(-5*pi/7)*(y-y02)-sin(-5*pi/7)*(x-(x02+12))],
+
+[ 21 , cos(-2*pi/7)*(y-y07)-sin(-2*pi/7)*(x-(x07+4))],
+[ 33 , cos(pi/7)*(y-y05)-sin(pi/7)*(x-(x05+8))],
+
+[ 23 , cos(2*pi/7)*(y-y02)-sin(2*pi/7)*(x-(x02+6))],
+[ 48 , cos(3*pi/7)*(y-y06)-sin(3*pi/7)*(x-(x06+12))],
+
+[ 25 , cos(6*pi/7)*(y-y04)-sin(6*pi/7)*(x-(x04+6))],
+[ 31 , cos(-3*pi/7)*(y-y03)-sin(-3*pi/7)*(x-(x03+8))],
+
+[ 27 , cos(-4*pi/7)*(y-y06)-sin(-4*pi/7)*(x-(x06+6))],
+[ 51 , cos(-5*pi/7)*(y-y02)-sin(-5*pi/7)*(x-(x02+14))],
+
+[ 28 , cos(-2*pi/7)*(y-y07)-sin(-2*pi/7)*(x-(x07+6))],
+[ 40 , cos(pi/7)*(y-y05)-sin(pi/7)*(x-(x05+10))],
+
+[ 30 , cos(2*pi/7)*(y-y02)-sin(2*pi/7)*(x-(x02+8))],
+[ 55 , cos(3*pi/7)*(y-y06)-sin(3*pi/7)*(x-(x06+14))],
+
+[ 32 , cos(6*pi/7)*(y-y04)-sin(6*pi/7)*(x-(x04+8))],
+[ 38 , cos(-3*pi/7)*(y-y03)-sin(-3*pi/7)*(x-(x03+10))],
+
+[ 35 , cos(-2*pi/7)*(y-y07)-sin(-2*pi/7)*(x-(x07+8))],
+[ 47 , cos(pi/7)*(y-y05)-sin(pi/7)*(x-(x05+12))],
+
+[ 39 , cos(6*pi/7)*(y-y04)-sin(6*pi/7)*(x-(x04+10))],
+[ 45 , cos(-3*pi/7)*(y-y03)-sin(-3*pi/7)*(x-(x03+12))],
+
+[ 42 , cos(-2*pi/7)*(y-y07)-sin(-2*pi/7)*(x-(x07+10))],
+[ 54 , cos(pi/7)*(y-y05)-sin(pi/7)*(x-(x05+14))],
+
+[ 46 , cos(6*pi/7)*(y-y04)-sin(6*pi/7)*(x-(x04+12))],
+[ 52 , cos(-3*pi/7)*(y-y03)-sin(-3*pi/7)*(x-(x03+14))]]) ;
+
+
+//Approxmation of the Laplacian
+Vh u1 , u2 ;
+real sigma = 0.00001 ;
+//requires a shift of the center of each of the heptagons to (0,0)
+varf op(u1 , u2)= int2d(Th)(dx(u1)* dx(u2)+ dy(u1)* dy(u2)- sigma *(4* u1*u2)/(1-(x-floor((x+1)/2)*2)^2-y^2)^2) ;
+varf b([ u1 ] , [ u2 ]) = int2d(Th)((4 * u1*u2)/(1-(x-floor((x+1)/2)*2)^2-y^2)^2) ;
+matrix OP= op(Vh,Vh, solver=Crout , factorize =1);
+matrix B=b(Vh,Vh, solver=CG, eps=1e -20);
+real [ int ] ev(nev) ;
+Vh[ int ] eV(nev) ;
+int k=EigenValue(OP,B, sym=true , sigma=sigma , value=ev , vector=eV, tol=1e-10,maxit=0,ncv=0);
+for(int i =0; i<k ; i++) {
+u1=eV[ i ] ;
+real gg = int2d(Th)(dx(u1)* dx(u1) + dy(u1)* dy(u1)) ; real mm= int2d(Th)(u1*u1) ;
+ofstream Eva(fnm, append) ;
+Eva << ev [ i ] << "\n" ;
+}
