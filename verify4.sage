@@ -149,7 +149,7 @@ D = e^(x^2/2)*V(x)
 p = D.full_simplify()
 if p.is_polynomial(x)!=True:
     print('Error, V is not of the form e^(-x^2/2)p(x) where p is a polynomial.\n')
-remainder = -12*V(RBF(200))
+remainder = -12*tanh(pi*200)*V(RBF(200))
 
 # We compute the contribution of the shortest and second closed geodesics in the geometric term 
 def f(x):
